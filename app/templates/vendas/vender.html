@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>📦 Vender Produto</h2>
+
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <div class="mb-3">
+    <label class="form-label">Produto</label>
+    <select name="produto_id" class="form-select">
+      {% for produto in produtos %}
+        <option value="{{ produto.id }}">{{ produto.nome }} (R$ {{ produto.preco }})</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Cliente</label>
+    <select name="usuario_id" class="form-select">
+      {% for u in usuarios %}
+        <option value="{{ u.id }}">{{ u.nome }} - {{ u.email }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Quantidade</label>
+    <input type="number" name="quantidade" class="form-control" min="1" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Desconto (%)</label>
+    <input type="number" name="desconto" class="form-control" value="5" step="0.01">
+  </div>
+
+  <button type="submit" class="btn btn-success">Registrar Venda</button>
+  <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

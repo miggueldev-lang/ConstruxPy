@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+{% if usuario.carteira %}
+  <a href="{{ url_for('carteira.detalhes') }}" class="carteirinha">
+    💰 Saldo: R$ {{ "%.2f"|format(usuario.carteira.saldo) }}
+  </a>
+{% endif %}
+
+<div class="text-center">
+    <h1 class="mb-4">🏗️ Sistema de Materiais de Construção</h1>
+
+    <div class="d-grid gap-3 col-6 mx-auto">
+        <a href="{{ url_for('produtos.listar') }}" class="btn btn-primary btn-lg">📦 Ver Produtos</a>
+
+        {% if session.get("usuario_tipo") == "usuario" %}
+        <a href="{{ url_for('vendas.comprar') }}" class="btn btn-primary btn-lg">🛒 Comprar um Produto</a>
+        {% elif session.get("usuario_tipo") == "vendedor" %}
+        <a href="{{ url_for('vendas.vender') }}" class="btn btn-warning btn-lg">💰 Vender um Produto</a>
+        {% endif %}
+
+        <a href="{{ url_for('vendas.mostrar_graficos') }}" class="btn btn-success btn-lg">📊 Ver Gráficos de Vendas</a>
+
+        {% if session.get("usuario_tipo") == "admin" %}
+        <a href="{{ url_for('usuarios.listar') }}" class="btn btn-secondary btn-lg">👥 Gerenciar Usuários</a>
+        {% endif %}
+
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger">DESCONECTAR</a>
+    </div>
+</div>
+{% endblock %}

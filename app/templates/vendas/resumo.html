@@ -1,0 +1,46 @@
+{% extends 'vendas/base_vendas.html' %}
+
+{% block title %}Resumo de Vendas{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Resumo de Vendas</h2>
+
+<div class="row g-4">
+
+  <div class="col-md-6 col-lg-4">
+    <div class="card p-4 shadow-sm">
+      <div class="text-muted">Total Vendido</div>
+      <h5>R$ {{ resumo.total_vendido | round(2) }}</h5>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="card p-4 shadow-sm">
+      <div class="text-muted">Total de Vendas</div>
+      <h5>{{ resumo.total_vendas }}</h5>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="card p-4 shadow-sm">
+      <div class="text-muted">Ticket Médio</div>
+      <h5>R$ {{ resumo.ticket_medio | round(2) }}</h5>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-6">
+    <div class="card p-4 shadow-sm">
+      <div class="text-muted">Produto Mais Vendido</div>
+      <h5>{{ resumo.produto_mais_vendido }}</h5>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-6">
+    <div class="card p-4 shadow-sm">
+      <div class="text-muted">Última Venda</div>
+      <h5>{{ resumo.ultima_venda }}</h5>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

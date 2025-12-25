@@ -1,0 +1,40 @@
+{% extends 'vendas/base_vendas.html' %}
+
+{% block title %}Atividade de Carteira{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Atividade de Carteira</h2>
+
+{% if plot_url %}
+  <div class="mb-4 text-center">
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Gráfico de Atividade de Carteira" class="img-fluid" style="max-height: 400px;">
+  </div>
+{% else %}
+  <p>Não há dados para exibir.</p>
+{% endif %}
+
+<div class="row g-4">
+
+  <div class="col-md-6 col-lg-4">
+    <div class="card p-4 shadow-sm">
+      <div class="text-muted">Total Entradas</div>
+      <h5>R$ {{ resumo.total_entradas | round(2) }}</h5>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="card p-4 shadow-sm">
+      <div class="text-muted">Total Saídas</div>
+      <h5>R$ {{ resumo.total_saidas | round(2) }}</h5>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="card p-4 shadow-sm">
+      <div class="text-muted">Saldo Atual</div>
+      <h5>R$ {{ resumo.saldo_atual | round(2) }}</h5>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

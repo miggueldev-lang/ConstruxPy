@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Painel de Vendas{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/graficos.css') }}">
+</head>
+<body>
+
+  <div class="sidebar">
+    <h4 class="mb-4">Painel</h4>
+    <nav class="nav flex-column">
+      <a href="{{ url_for('vendas.mostrar_graficos', tipo='dia') }}" class="nav-link {% if request.path.startswith('/graficos') %}active{% endif %}">Evolução de Vendas</a>
+      <a href="{{ url_for('vendas.resumo_vendas') }}" class="nav-link {% if request.path.startswith('/resumo') %}active{% endif %}">Resumo de Vendas</a>
+      <a href="{{ url_for('vendas.curva_abc') }}" class="nav-link {% if request.path.startswith('/curva-abc') %}active{% endif %}">Curva ABC</a>
+      <a href="{{ url_for('vendas.atividade_carteira') }}" class="nav-link {% if request.path.startswith('/atividade-carteira') %}active{% endif %}">Atividade de Carteira</a>
+
+    </nav>
+  </div>
+
+  <div class="content">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for msg in messages %}
+          <div class="alert alert-info">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <a href="{{ url_for('main.home') }}" class="btn btn-success btn-voltar">← Voltar</a>
+
+</body>
+</html>

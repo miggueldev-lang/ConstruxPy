@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h1>Usuários</h1>
+
+<!-- Filtro e Pesquisa -->
+<form method="GET" class="row g-3 mb-4">
+  <div class="col-md-4">
+    <input type="text" class="form-control" name="busca" placeholder="Buscar por nome..." value="{{ request.args.get('busca', '') }}">
+  </div>
+  <div class="col-md-4">
+    <select class="form-select" name="tipo">
+      <option value="">Todos os Tipos</option>
+      <option value="usuario" {% if request.args.get('tipo') == 'usuario' %}selected{% endif %}>Usuário</option>
+      <option value="vendedor" {% if request.args.get('tipo') == 'vendedor' %}selected{% endif %}>Vendedor</option>
+      <option value="admin" {% if request.args.get('tipo') == 'admin' %}selected{% endif %}>Administrador</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <button type="submit" class="btn btn-primary w-100">🔍 Filtrar</button>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Tipo</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for usuario in usuarios %}
+    <tr>
+      <td>{{ usuario.nome }}</td>
+      <td>{{ usuario.email }}</td>
+      <td>{{ usuario.tipo|capitalize }}</td>
+      <td>
+        {% if usuario.nome != "ADM-MASTER" %}
+        <a href="{{ url_for('usuarios.editar', id=usuario.id) }}" class="btn btn-sm btn-warning">Editar</a>
+        <form action="{{ url_for('usuarios.deletar', id=usuario.id) }}" method="post" style="display:inline-block;">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este usuário?')">Deletar</button>
+        </form>
+        {% else %}
+        <span class="text-muted">Protegido</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="text-center mt-5">
+  <a href="{{ url_for('main.home') }}" class="btn btn-outline-success">HOME</a>
+</div>
+{% endblock %}

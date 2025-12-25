@@ -1,0 +1,19 @@
+{% extends 'vendas/base_vendas.html' %}
+
+{% block title %}Gráficos de Vendas{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Evolução de Vendas</h2>
+
+<div class="mb-3 btn-group" role="group">
+  <a href="{{ url_for('vendas.mostrar_graficos', tipo='dia') }}" class="btn btn-outline-primary {% if tipo == 'dia' %}active{% endif %}">Por Dia</a>
+  <a href="{{ url_for('vendas.mostrar_graficos', tipo='produto') }}" class="btn btn-outline-success {% if tipo == 'produto' %}active{% endif %}">Por Produto</a>
+  <a href="{{ url_for('vendas.mostrar_graficos', tipo='usuario') }}" class="btn btn-outline-warning {% if tipo == 'usuario' %}active{% endif %}">Por Usuário</a>
+  <a href="{{ url_for('vendas.mostrar_graficos', tipo='categoria') }}" class="btn btn-outline-danger {% if tipo == 'categoria' %}active{% endif %}">Por Categoria</a>
+  <a href="{{ url_for('vendas.mostrar_graficos', tipo='trimestre') }}" class="btn btn-outline-info {% if tipo == 'trimestre' %}active{% endif %}">Por Trimestre</a>
+</div>
+
+<div class="card mt-4 p-4 shadow">
+  <img src="data:image/png;base64,{{ plot_url }}" alt="Gráfico: {{ tipo }}">
+</div>
+{% endblock %}

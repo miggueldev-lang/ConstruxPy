@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h1>{{ 'Editar' if form.nome.data else 'Adicionar' }} Produto</h1>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">{{ form.nome.label }}{{ form.nome(class="form-control") }}</div>
+  <div class="mb-3">{{ form.descricao.label }}{{ form.descricao(class="form-control") }}</div>
+  <div class="mb-3">{{ form.preco.label }}{{ form.preco(class="form-control") }}</div>
+  <div class="mb-3">{{ form.quantidade_estoque.label }}{{ form.quantidade_estoque(class="form-control") }}</div>
+  <div class="mb-3">{{ form.categoria.label }}{{ form.categoria(class="form-control") }}</div>
+  {{ form.submit(class="btn btn-success") }}
+</form>
+{% endblock %}

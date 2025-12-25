@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/carteira.css') }}">
+
+<div class="card-carteira">
+  <h2>💳 Carteira</h2>
+  <p>Saldo atual: <strong>R$ {{ "%.2f"|format(usuario.carteira.saldo) }}</strong></p>
+
+  <form method="post" action="{{ url_for('carteira.adicionar_saldo') }}" class="form-adicionar mb-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="number" name="valor" class="form-control" placeholder="Adicionar valor" min="1" step="0.01" required>
+    <button type="submit" class="btn btn-success">Adicionar</button>
+  </form>
+
+  <h4>📄 Extrato</h4>
+  <ul class="list-group extrato-list">
+    {% for item in extratos %}
+      <li class="list-group-item d-flex justify-content-between">
+        <span>{{ item.descricao }}</span>
+        <strong>R$ {{ "%.2f"|format(item.valor) }}</strong>
+      </li>
+    {% else %}
+      <li class="list-group-item">Nenhuma movimentação ainda.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="mt-4 text-center">
+  <a href="{{ url_for('main.home') }}" class="btn btn-outline-secondary">⬅ Voltar</a>
+</div>
+{% endblock %}

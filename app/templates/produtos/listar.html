@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h1>Produtos</h1>
+<a href="{{ url_for('produtos.criar') }}" class="btn btn-primary mb-3">Adicionar Produto</a>
+
+<!-- Filtro e Pesquisa -->
+<form method="get" class="row g-2 mb-4">
+  <div class="col-md-4">
+    <input type="text" name="busca" value="{{ request.args.get('busca', '') }}" class="form-control" placeholder="Buscar por nome">
+  </div>
+  <div class="col-md-4">
+    <select name="categoria" class="form-select">
+      <option value="">Todas as categorias</option>
+      {% for cat in categorias %}
+        <option value="{{ cat }}" {% if request.args.get('categoria') == cat %}selected{% endif %}>{{ cat }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-4">
+    <button class="btn btn-primary w-100" type="submit">Filtrar</button>
+  </div>
+</form>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Preço</th>
+      <th>Estoque</th>
+      <th>Categoria</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for produto in produtos %}
+    <tr>
+      <td>{{ produto.nome }}</td>
+      <td>R$ {{ produto.preco }}</td>
+      <td>{{ produto.quantidade_estoque }}</td>
+      <td>{{ produto.categoria }}</td>
+      <td>
+        <a href="{{ url_for('produtos.editar', id=produto.id) }}" class="btn btn-sm btn-warning">Editar</a>
+        <form action="{{ url_for('produtos.deletar', id=produto.id) }}" method="post" style="display:inline-block;">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir?')">Deletar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="text-center mt-5">
+  <a href="{{ url_for('main.home') }}" class="btn btn-outline-success">HOME</a>
+</div>
+{% endblock %}

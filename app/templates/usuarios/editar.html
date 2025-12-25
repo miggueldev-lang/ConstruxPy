@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+  <h2>Editar Tipo de Usuário</h2>
+  <form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="mb-3">
+      <label for="tipo" class="form-label">Tipo</label>
+      <select name="tipo" class="form-select">
+        <option value="usuario" {% if usuario.tipo == 'usuario' %}selected{% endif %}>Usuário</option>
+        <option value="vendedor" {% if usuario.tipo == 'vendedor' %}selected{% endif %}>Vendedor</option>
+        <option value="admin" {% if usuario.tipo == 'admin' %}selected{% endif %}>Administrador</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar Alterações</button>
+    <a href="{{ url_for('usuarios.listar') }}" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}

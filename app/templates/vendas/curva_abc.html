@@ -1,0 +1,15 @@
+{% extends 'vendas/base_vendas.html' %}
+
+{% block title %}Curva ABC{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Curva ABC de Produtos</h2>
+
+<div class="card p-4 shadow-sm">
+  {% if plot_url %}
+    <img src="data:image/png;base64,{{ plot_url }}" class="img-fluid" alt="Gráfico Curva ABC">
+  {% else %}
+    <p class="text-muted">Nenhum dado disponível para gerar a curva ABC.</p>
+  {% endif %}
+</div>
+{% endblock %}

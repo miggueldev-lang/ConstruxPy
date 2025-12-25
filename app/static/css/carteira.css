@@ -1,0 +1,33 @@
+.card-carteira {
+  background: #f9f9f9;
+  border-left: 5px solid #0d6efd;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-carteira h2 {
+  color: #0d6efd;
+}
+
+.extrato-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.extrato-list .list-group-item {
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+
+.extrato-list .list-group-item:last-child {
+  border-bottom: none;
+}
+
+.form-adicionar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
